@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="us">
+<head>
+	<meta charset="utf-8">
+	<title>jQuery UI Example Page</title>
+	<link href="jquery-ui.css" rel="stylesheet">
+	<style>
+	body{
+		font-family: "Trebuchet MS", sans-serif;
+		margin: 50px;
+	}
+	.demoHeaders {
+		margin-top: 1em;
+		color:white; background-color:#459e00;
+		padding: 5px 20px;
+		border-top-right-radius: 20px;
+		border-bottom-left-radius: 20px;
+		border-top-left-radius: 20px;
+		border-bottom-right-radius: 20px;
+	}
+	#dialog-link {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	#dialog-link span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+	#icons {
+		margin: 0;
+		padding: 0;
+	}
+	#icons li {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0;
+		cursor: pointer;
+		float: left;
+		list-style: none;
+	}
+	#icons span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+	.fakewindowcontain .ui-widget-overlay {
+		position: absolute;
+	}
+	select {
+		width: 200px;
+	}
+	#red, #green, #blue {
+    float: left;
+    clear: left;
+    width: 300px;
+    margin: 15px;
+  }
+  #swatch {
+    width: 120px;
+    height: 100px;
+    margin-top: 18px;
+    margin-left: 350px;
+    background-image: none;
+  }
+  #red .ui-slider-range { background: #ef2929; }
+  #red .ui-slider-handle { border-color: #ef2929; }
+  #green .ui-slider-range { background: #8ae234; }
+  #green .ui-slider-handle { border-color: #8ae234; }
+  #blue .ui-slider-range { background: #729fcf; }
+  #blue .ui-slider-handle { border-color: #729fcf; }
+
+#opener {
+	padding: 0.75em;
+	margin-top: 25px;
+	float: left;
+	clear: left;
+	margin-left: 50px;
+	margin-bottom: 50px;
+	background-color: #459e00;
+	color: white;
+}
+	
+	</style>
+</head>
+<body>
+
+<img src="https://cdn.pixabay.com/photo/2014/03/25/16/54/ufo-297549_1280.png" width="250px"></img>	
+
+<h1 class="demoHeaders">Alien Sighting Form</h1>
+
+<h2 class="demoHeaders">Sighting Date</h2>
+
+<!-- Datepicker -->
+<!--<h2 class="demoHeaders">Datepicker</h2>-->
+<div id="datepicker"></div>
+
+<!-- Checkboxradio -->
+<h2 class="demoHeaders">Creature Type</h2>
+<form style="margin-top: 1em;">
+	<div id="radioset">
+		<input type="radio" id="radio1" name="radio"><label for="radio1">Sponge-like</label>
+		<input type="radio" id="radio2" name="radio" checked="checked"><label for="radio2">Worm-like</label>
+		<input type="radio" id="radio3" name="radio"><label for="radio3">Insect-like</label>
+		<input type="radio" id="radio4" name="radio"><label for="radio4">Fish-like</label>
+		<input type="radio" id="radio5" name="radio"><label for="radio5">Bird-like</label>
+</form>
+	</div>
+
+
+<!-- Slider -->
+
+<!--<h2 class="demoHeaders">Aleign Weight (kg)</h2>
+<label for="alein weight">Weight 20 kg</label>-->
+<h2 class="demoHeaders">Aleign Weight (kg)</h2>
+
+	<label for="alein weight">Weight 20 kg </label>
+	<div id="sliderWeight">
+	<div id="custom-handle" class="ui-slider-handle"></div>
+  </div>
+
+<h2 class="demoHeaders">Aleign Height (m)</h2>
+<label for="alein height">Height 5 m </label>
+	<div id="sliderHeight">
+	<div id="custom-handle2" class="ui-slider-handle"></div>
+  </div>
+
+
+<!-- Spinner -->
+<h2 class="demoHeaders">Number of Eyes</h2>
+<input id="spinnerEyes">
+
+<!-- Spinner -->
+<h2 class="demoHeaders">Number of Arms</h2>
+<input id="spinnerArms">
+
+<!-- Spinner -->
+<h2 class="demoHeaders">Number of Legs</h2>
+<input id="spinnerLegs">
+
+<!--Color Picker-->
+<body class="ui-widget-content" style="border:0;">
+	<h2 class="demoHeaders">Color of Creature</h2>
+	 
+	<div id="red"></div>
+	<div id="green"></div>
+	<div id="blue"></div>
+	 
+	<div id="swatch" class="ui-widget-content ui-corner-all"></div> 
+	<br>
+
+ 
+<button type="submit" id="opener" name="submit">submit</button>
+
+<div id="dialog" title="Basic dialog">
+	<p style="font-family: roboto">Your Sighting has been reported<br>Keep watching!</p>
+	<div id="results"></div>
+  </div>
+   
+
+	 
+
+<script src="external/jquery/jquery.js"></script>
+<script src="jquery-ui.js"></script>
+<script>
+var availableTags = [
+	"ActionScript",
+	"AppleScript",
+	"Asp",
+	"BASIC",
+	"C",
+	"C++",
+	"Clojure",
+	"COBOL",
+	"ColdFusion",
+	"Erlang",
+	"Fortran",
+	"Groovy",
+	"Haskell",
+	"Java",
+	"JavaScript",
+	"Lisp",
+	"Perl",
+	"PHP",
+	"Python",
+	"Ruby",
+	"Scala",
+	"Scheme"
+];
+
+$( "#button" ).button();
+
+
+$( "#radioset" ).buttonset();
+
+
+$( "#datepicker" ).datepicker({
+	inline: true
+});
+
+$( function() {
+    var handle = $( "#custom-handle" );
+    $( "#sliderWeight" ).slider({
+		range: "max",
+		min: 20,
+		max:500,
+      create: function() {
+        handle.text( $( this ).slider( "value" ) );
+      },
+      slide: function( event, ui ) {
+        handle.text( ui.value + "kg");
+      }
+    });
+  });
+
+  $( function() {
+    var handle = $( "#custom-handle2" );
+    $( "#sliderHeight" ).slider({
+		range: "max",
+		min: 5,
+		max: 150,
+      create: function() {
+        handle.text( $( this ).slider( "value" ) );
+      },
+      slide: function( event, ui ) {
+        handle.text( ui.value + "m");
+      }
+    });
+  });
+
+$( "#spinnerEyes" ).spinner( {
+	min: 0
+});
+
+$( "#spinnerArms" ).spinner({
+	min: 0
+});
+
+$( "#spinnerLegs" ).spinner({
+	min: 0
+});
+
+</script>
+<script>
+	$( function() {
+	  function hexFromRGB(r, g, b) {
+		var hex = [
+		  r.toString( 16 ),
+		  g.toString( 16 ),
+		  b.toString( 16 )
+		];
+		$.each( hex, function( nr, val ) {
+		  if ( val.length === 1 ) {
+			hex[ nr ] = "0" + val;
+		  }
+		});
+		return hex.join( "" ).toUpperCase();
+	  }
+	  function refreshSwatch() {
+		var red = $( "#red" ).slider( "value" ),
+		  green = $( "#green" ).slider( "value" ),
+		  blue = $( "#blue" ).slider( "value" ),
+		  hex = hexFromRGB( red, green, blue );
+		$( "#swatch" ).css( "background-color", "#" + hex );
+	  }
+   
+	  $( "#red, #green, #blue" ).slider({
+		orientation: "horizontal",
+		range: "min",
+		max: 255,
+		value: 127,
+		slide: refreshSwatch,
+		change: refreshSwatch
+	  });
+	  $( "#red" ).slider( "value", 255 );
+	  $( "#green" ).slider( "value", 140 );
+	  $( "#blue" ).slider( "value", 60 );
+	} );
+    $( "#dialog" ).dialog({
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "explode",
+        duration: 1000
+      }
+    });
+ 
+
+function handleFormSubmit(event) {
+   event.preventDefault();
+   
+   const dt = $("#datepicker").val();
+   const creatureType = $("#creatureType :radio:checked").attr('id');
+   const weight = $("#sliderWeight").slider("option", "value");
+   const height = $("#sliderHeight").slider("option", "value");
+   const numberEyes = $("#spinnerEyes").spinner("value"); 
+   const numberArms = $("#spinnerArms").spinner("value"); 
+   const numberLegs = $("#spinnerLegs").spinner("value"); 
+
+   let siteReport = new Object();
+   siteReport.date = dt;
+   siteReport.creatureType = creatureType;
+   siteReport.weight = weight; 
+   siteReport.height = height;
+   siteReport.numberEyes = numberEyes;
+   siteReport.numberArms = numberArms;
+   siteReport.numberLegs = numberLegs;
+   siteReport.color = $( "#swatch" ).css("background-color");
+
+   // Convert siteReport object to a json object
+   const json = JSON.stringify(siteReport);
+   const heading = "<h4 className=\"ui-state-default ui-corner-all ui-helper-clearfix\" style=\"padding:4px; background: #999f29;\">Alien Sighting Report Json Data<h4>"
+   results.innerHTML = heading + json + "<br>" + JSON.parse(json);
+}
+
+$( "#opener").click(function( event ) {
+	 $( "#dialog" ).dialog( "open" );
+   		handleFormSubmit(event); 
+});
+
+	</script>
+</body>
+</html>
